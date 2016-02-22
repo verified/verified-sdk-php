@@ -300,10 +300,17 @@
 
             $headers = $headers + $this->_customHeaders;
 
-            //$response = Unirest::{strtolower($resource['method'])}($resource["endpoint"], $headers, $resource['data']);
-            $response = call_user_func_array(
-                array('Unirest', strtolower($resource['method'])),
-                array($resource["endpoint"], $headers, $resource['data']));
+            if (class_exists ('\Unirest')) {
+                //$response = Unirest::{strtolower($resource['method'])}($resource["endpoint"], $headers, $resource['data']);
+                $response = call_user_func_array(
+                    array('Unirest', strtolower($resource['method'])),
+                    array($resource["endpoint"], $headers, $resource['data']));
+            } else {
+                //$response = \Unirest\Request::{strtolower($resource['method'])}($resource["endpoint"], $headers, $resource['data']);
+                $response = call_user_func_array(
+                    '\Unirest\Request::'.strtolower($resource['method']),
+                    array($resource["endpoint"], $headers, $resource['data']));
+            }
 
             $responseHeaders = $response->headers;
             if ($response_type == 'application/json') {
