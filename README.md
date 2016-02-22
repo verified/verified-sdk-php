@@ -1,3 +1,7 @@
+**Please note:** This repository has been deprecated in favour of [wcealliance/php-sdk](https://github.com/wcealliance/php-sdk)
+
+---------------------------------
+
 Verified API SDK for PHP
 ================
 
